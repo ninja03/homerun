@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // プレイヤー画像の読み込み
   const playerImage = document.getElementById("player");
+  // test
 
   // ゲーム状態
   let gameState = {
