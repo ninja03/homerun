@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ball: null,
     animationId: null,
     endGameCalled: false, // ゲーム終了処理が呼び出されたかどうかを追跡
+    lastSwingTime: 0, // 最後にバットを振った時刻
   };
 
   // ボールクラス
@@ -89,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ball: null,
       animationId: null,
       endGameCalled: false,
+      lastSwingTime: 0,
     };
 
     updateStats();
@@ -127,13 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (gameState.isSwinging || gameState.isGameOver) return;
 
     gameState.isSwinging = true;
+    gameState.lastSwingTime = Date.now(); // 現在の時刻を記録
     bat.classList.add("swing");
-
-    // ヒット判定を大幅に簡素化
-    // ボールが画面上にあれば常にヒット判定
-    if (gameState.isBallInPlay && gameState.ball.y > 0) {
-      hitBall();
-    }
 
     // スイング後、バットを元の位置に戻す
     setTimeout(() => {
@@ -288,6 +285,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (gameState.isBallInPlay) {
       gameState.ball.update();
       gameState.ball.draw();
+
+      // ボールがまだヒットされておらず、ヒットゾーンにある場合、直近のスイングをチェック
+      if (!gameState.ball.isHit && gameState.ball.isInHitZone()) {
+        const currentTime = Date.now();
+        const swingTimeDiff = currentTime - gameState.lastSwingTime;
+        
+        // 300ms以内にスイングしていればヒット判定
+        if (swingTimeDiff <= 300) {
+          hitBall();
+        }
+      }
 
       // ボールが画面外に出たら新しい投球を開始
       if (gameState.ball.isOutOfBounds()) {
