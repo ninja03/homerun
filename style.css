@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.game-container {
+    position: relative;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+#stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+}
+
+#game-area {
+    position: relative;
+    width: 800px;
+    height: 600px;
+}
+
+#gameCanvas {
+    background-color: #87CEEB;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#bat-container {
+    position: absolute;
+    bottom: 100px;
+    left: 350px;
+    z-index: 10;
+}
+
+#bat {
+    transform-origin: 50% 180px;
+    transform: rotate(-30deg);
+    transition: transform 0.2s ease-out;
+}
+
+#bat.swing {
+    transform: rotate(30deg);
+    transition: transform 0.1s ease-in;
+}
+
+#player-container {
+    position: absolute;
+    bottom: 20px;
+    left: 350px;
+    z-index: 5;
+}
+
+#player {
+    width: 100px;
+    height: auto;
+}
+
+#flight-distance {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #FF6347;
+    height: 30px;
+}
+
+#game-message {
+    margin-top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #4169E1;
+    min-height: 100px; /* 高さを大きくして、メッセージとボタンが表示されるようにする */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 2px solid #333;
+    border-radius: 50%;
+    z-index: 1;
+}
